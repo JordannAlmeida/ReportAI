@@ -21,32 +21,50 @@ func NewReportHandler(s *service.ReportService) *ReportHandler {
 
 // List godoc
 // @Summary List reports
-// @Description Get all reports
+// @Description Get all reports with pagination
 // @Tags reports
 // @Produce json
-// @Success 200 {array} model.Report
+// @Param page query int false "Page number (default: 1)"
+// @Param page_size query int false "Page size (default: 10, max: 100)"
+// @Success 200 {object} model.PaginatedReports
+// @Failure 400 {object} map[string]string
 // @Failure 500 {object} map[string]string
 // @Router /api/v1/reports [get]
 func (h *ReportHandler) List(w http.ResponseWriter, r *http.Request) {
-	reports, err := h.service.List(r.Context())
+	q := r.URL.Query()
+	page, _ := strconv.Atoi(q.Get("page"))
+	pageSize, _ := strconv.Atoi(q.Get("page_size"))
+
+	if page <= 0 {
+		page = 1
+	}
+	if pageSize <= 0 {
+		pageSize = 10
+	}
+
+	paginatedReports, err := h.service.ListWithPagination(r.Context(), page, pageSize)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		json.NewEncoder(w).Encode(map[string]string{"error": err.Error()})
 		return
 	}
+
+	w.Header().Set("Content-Type", "application/json")
 	enc := json.NewEncoder(w)
 	enc.SetEscapeHTML(false)
-	enc.Encode(reports)
+	enc.Encode(paginatedReports)
 }
 
 // Filter godoc
-// @Summary Filter report
-// @Description Get a report by id and user_mail
+// @Summary Filter reports
+// @Description Get reports by id and user_mail with pagination
 // @Tags reports
 // @Produce json
 // @Param id query int true "Report ID"
 // @Param user_mail query string false "User Email"
-// @Success 200 {object} model.Report
+// @Param page query int false "Page number (default: 1)"
+// @Param page_size query int false "Page size (default: 10, max: 100)"
+// @Success 200 {object} model.PaginatedReports
 // @Failure 400 {object} map[string]string
 // @Failure 404 {object} map[string]string
 // @Failure 422 {object} map[string]string
@@ -55,11 +73,20 @@ func (h *ReportHandler) List(w http.ResponseWriter, r *http.Request) {
 func (h *ReportHandler) Filter(w http.ResponseWriter, r *http.Request) {
 	q := r.URL.Query()
 	id, _ := strconv.Atoi(q.Get("id"))
+	page, _ := strconv.Atoi(q.Get("page"))
+	pageSize, _ := strconv.Atoi(q.Get("page_size"))
 
 	if id == 0 {
 		w.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(w).Encode(map[string]string{"error": "id and user_mail are required"})
+		json.NewEncoder(w).Encode(map[string]string{"error": "id is required"})
 		return
+	}
+
+	if page <= 0 {
+		page = 1
+	}
+	if pageSize <= 0 {
+		pageSize = 10
 	}
 
 	var userMail *string
@@ -70,7 +97,7 @@ func (h *ReportHandler) Filter(w http.ResponseWriter, r *http.Request) {
 		userMail = nil
 	}
 
-	rep, err := h.service.Filter(r.Context(), id, userMail)
+	paginatedReports, err := h.service.FilterWithPagination(r.Context(), id, userMail, page, pageSize)
 	if err != nil {
 		if err.Error() == "the report that you select was inactive" {
 			w.WriteHeader(http.StatusUnprocessableEntity)
@@ -80,14 +107,17 @@ func (h *ReportHandler) Filter(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(map[string]string{"error": err.Error()})
 		return
 	}
-	if rep == nil {
+
+	if len(paginatedReports.Reports) == 0 {
 		w.WriteHeader(http.StatusNotFound)
 		json.NewEncoder(w).Encode(map[string]string{"error": "report not found"})
 		return
 	}
+
+	w.Header().Set("Content-Type", "application/json")
 	enc := json.NewEncoder(w)
 	enc.SetEscapeHTML(false)
-	enc.Encode(rep)
+	enc.Encode(paginatedReports)
 }
 
 // Create godoc

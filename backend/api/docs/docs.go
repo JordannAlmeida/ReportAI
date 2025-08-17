@@ -26,7 +26,7 @@ const docTemplate = `{
     "paths": {
         "/api/v1/reports": {
             "get": {
-                "description": "Get all reports",
+                "description": "Get all reports with pagination",
                 "produces": [
                     "application/json"
                 ],
@@ -34,13 +34,33 @@ const docTemplate = `{
                     "reports"
                 ],
                 "summary": "List reports",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Page number (default: 1)",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Page size (default: 10, max: 100)",
+                        "name": "page_size",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/model.Report"
+                            "$ref": "#/definitions/model.PaginatedReports"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
                             }
                         }
                     },
@@ -140,14 +160,14 @@ const docTemplate = `{
         },
         "/api/v1/reports/filter": {
             "get": {
-                "description": "Get a report by id and user_mail",
+                "description": "Get reports by id and user_mail with pagination",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
                     "reports"
                 ],
-                "summary": "Filter report",
+                "summary": "Filter reports",
                 "parameters": [
                     {
                         "type": "integer",
@@ -161,13 +181,25 @@ const docTemplate = `{
                         "description": "User Email",
                         "name": "user_mail",
                         "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Page number (default: 1)",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Page size (default: 10, max: 100)",
+                        "name": "page_size",
+                        "in": "query"
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/model.Report"
+                            "$ref": "#/definitions/model.PaginatedReports"
                         }
                     },
                     "400": {
@@ -234,6 +266,12 @@ const docTemplate = `{
                         "type": "string",
                         "description": "Prompt",
                         "name": "prompt",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Model",
+                        "name": "model",
                         "in": "formData"
                     },
                     {
@@ -314,6 +352,29 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "model.PaginatedReports": {
+            "type": "object",
+            "properties": {
+                "page": {
+                    "type": "integer"
+                },
+                "page_size": {
+                    "type": "integer"
+                },
+                "reports": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.Report"
+                    }
+                },
+                "total_count": {
+                    "type": "integer"
+                },
+                "total_pages": {
+                    "type": "integer"
+                }
+            }
+        },
         "model.Report": {
             "type": "object",
             "properties": {

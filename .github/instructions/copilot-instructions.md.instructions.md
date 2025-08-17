@@ -31,24 +31,22 @@ Copilot should follow these rules when generating code.
 ```
 
 backend/
-├── cmd/
-│   └── api/             # Main application entrypoint
-│       └── main.go
-├── internal/              # Private application code (cannot be imported outside module)
+├── api/             # Private application code (cannot be imported outside module)
 │   ├── config/            # Configuration loading (env, files)
 │   ├── server/            # HTTP server setup & middleware
 │   ├── handler/           # HTTP handlers (controllers)
 │   ├── service/           # Business logic layer
 │   ├── repository/        # Data access (DB, cache)
 │   ├── model/             # Structs for domain entities
-│   └── middleware/        # Auth, logging, rate limiting
+│   ├── middleware/        # Auth, logging, rate limiting
+│   ├── go.mod
+│   ├── main.go              # Entry point
+│   └── go.sum
 ├── pkg/                   # Publicly reusable packages (optional)
-├── api/                   # API specs (Swagger/OpenAPI, proto files)
 ├── migrations/            # DB migrations (SQL)
 ├── scripts/               # DevOps, build, deploy scripts
 ├── .env                   # Environment variables
-├── go.mod
-└── go.sum
+
 
 
 ````

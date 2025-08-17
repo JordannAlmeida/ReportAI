@@ -20,6 +20,18 @@ type UpdateReportReq struct {
 	Template string `json:"template" validate:"required,min=1"`
 }
 
+type ListReportsReq struct {
+	Page     int `json:"page"`
+	PageSize int `json:"page_size"`
+}
+
+type FilterReportParams struct {
+	ID       int     `json:"id"`
+	UserMail *string `json:"user_mail"`
+	Page     int     `json:"page"`
+	PageSize int     `json:"page_size"`
+}
+
 var validate = validator.New()
 
 func Validate(i any) error {

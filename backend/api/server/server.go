@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"reportia/config"
+	"reportia/middleware"
 
 	"github.com/gorilla/mux"
 )
@@ -26,5 +27,5 @@ func New(cfg *config.Config) *Server {
 func (s *Server) Start() error {
 	addr := fmt.Sprintf(":%s", s.cfg.Port)
 	log.Printf("Server running on %s", addr)
-	return http.ListenAndServe(addr, s.router)
+	return http.ListenAndServe(addr, middleware.CORS(s.cfg.AllowedOrigin)(s.router))
 }

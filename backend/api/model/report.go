@@ -11,3 +11,11 @@ type Report struct {
 	CreateAt time.Time `json:"create_at"`
 	UpdateAt time.Time `json:"update_at"`
 }
+
+type PaginatedReports struct {
+	Reports    []Report `json:"reports"`
+	TotalCount int      `json:"total_count"`
+	Page       int      `json:"page"`
+	PageSize   int      `json:"page_size"`
+	TotalPages int      `json:"total_pages"`
+}

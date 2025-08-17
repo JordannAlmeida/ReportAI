@@ -9,6 +9,7 @@ type Config struct {
 	DbURL              string
 	GeminiAPIKey       string
 	GeminiModelDefault string
+	AllowedOrigin      string
 }
 
 func Load() *Config {
@@ -17,6 +18,7 @@ func Load() *Config {
 		DbURL:              getEnv("DB_URL", ""),
 		GeminiAPIKey:       getEnv("GEMINI_API_KEY", ""),
 		GeminiModelDefault: getEnv("GEMINI_MODEL_DEFAULT", ""),
+		AllowedOrigin:      getEnv("CORS_ALLOWED_ORIGIN", "http://localhost:5173"),
 	}
 }
 

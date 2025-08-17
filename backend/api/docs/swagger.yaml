@@ -1,4 +1,19 @@
 definitions:
+  model.PaginatedReports:
+    properties:
+      page:
+        type: integer
+      page_size:
+        type: integer
+      reports:
+        items:
+          $ref: '#/definitions/model.Report'
+        type: array
+      total_count:
+        type: integer
+      total_pages:
+        type: integer
+    type: object
   model.Report:
     properties:
       active:
@@ -68,16 +83,29 @@ info:
 paths:
   /api/v1/reports:
     get:
-      description: Get all reports
+      description: Get all reports with pagination
+      parameters:
+      - description: 'Page number (default: 1)'
+        in: query
+        name: page
+        type: integer
+      - description: 'Page size (default: 10, max: 100)'
+        in: query
+        name: page_size
+        type: integer
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            items:
-              $ref: '#/definitions/model.Report'
-            type: array
+            $ref: '#/definitions/model.PaginatedReports'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
         "500":
           description: Internal Server Error
           schema:
@@ -143,7 +171,7 @@ paths:
       - reports
   /api/v1/reports/filter:
     get:
-      description: Get a report by id and user_mail
+      description: Get reports by id and user_mail with pagination
       parameters:
       - description: Report ID
         in: query
@@ -154,13 +182,21 @@ paths:
         in: query
         name: user_mail
         type: string
+      - description: 'Page number (default: 1)'
+        in: query
+        name: page
+        type: integer
+      - description: 'Page size (default: 10, max: 100)'
+        in: query
+        name: page_size
+        type: integer
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/model.Report'
+            $ref: '#/definitions/model.PaginatedReports'
         "400":
           description: Bad Request
           schema:
@@ -185,7 +221,7 @@ paths:
             additionalProperties:
               type: string
             type: object
-      summary: Filter report
+      summary: Filter reports
       tags:
       - reports
   /api/v1/reports/generate:
@@ -202,6 +238,10 @@ paths:
       - description: Prompt
         in: formData
         name: prompt
+        type: string
+      - description: Model
+        in: formData
+        name: model
         type: string
       - description: File to upload
         in: formData

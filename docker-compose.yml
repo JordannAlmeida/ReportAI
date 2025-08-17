@@ -12,7 +12,7 @@ services:
         - CMD-SHELL
         - pg_isready -U postgres
       timeout: 5s
-    image: postgres:15
+    image: postgres:latest
     ports:
       - 5432:5432
     restart: always
