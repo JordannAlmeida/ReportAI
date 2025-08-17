@@ -1,0 +1,73 @@
+# =========================
+# Global ignores
+# =========================
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+*.temp
+*.swp
+*.swo
+*.bak
+.env.local
+
+# =========================
+# Node / Frontend
+# =========================
+# Dependencies
+frontend/node_modules/
+
+# Build output
+frontend/dist/
+frontend/.vite/
+
+# Env files
+frontend/.env
+frontend/.env.*.local
+
+# Cache
+frontend/.eslintcache
+frontend/.parcel-cache
+frontend/.turbo/
+frontend/.cache/
+frontend/.tsbuildinfo
+
+# =========================
+# Go / Backend
+# =========================
+# Binaries
+backend/bin/
+backend/tmp/
+backend/dist/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Go build cache
+*.test
+*.out
+*.prof
+
+# Go modules & vendor (optional if you want to vendor)
+vendor/
+
+# Env files
+backend/.env
+backend/.env.*.local
+
+# =========================
+# IDE / Editors
+# =========================
+.vscode/
+.idea/
+*.iml
+
+# =========================
+# OS-specific
+# =========================
+ehthumbs.db
+Desktop.ini
+
+meus-prompts/

@@ -1,0 +1,736 @@
+<html lang="pt-br">
+
+<head></head>
+
+<body>```html
+
+
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modelo de Relatório Empresarial</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #edf2f0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* HEADER STYLES */
+        .header {
+            background: linear-gradient(135deg, #006b3f 0%, #079d56 100%);
+            color: #ffffff;
+            padding: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 200px;
+            background: rgba(247, 141, 32, 0.1);
+            border-radius: 50%;
+            transform: translate(50%, -50%);
+        }
+
+        .header-content {
+            padding: 0 3rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .company-logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #f78d20;
+        }
+
+        .report-title {
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+        }
+
+        .report-meta {
+            display: flex;
+            gap: 2rem;
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* BODY STYLES */
+        .body {
+            flex: 1;
+            padding: 3rem;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: #006b3f;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid #f78d20;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: #079d56;
+        }
+
+        .subsection-title {
+            font-size: 1.3rem;
+            color: #079d56;
+            margin: 2rem 0 1rem 0;
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            text-align: justify;
+            color: #444;
+        }
+
+        /* LIST STYLES */
+        ul,
+        ol {
+            margin: 1rem 0 1rem 2rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+            color: #444;
+        }
+
+        li::marker {
+            color: #f78d20;
+        }
+
+        /* TABLE STYLES */
+        .table-container {
+            overflow-x: auto;
+            margin: 2rem 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #ffffff;
+        }
+
+        th {
+            background: linear-gradient(135deg, #006b3f, #079d56);
+            color: #ffffff;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid #edf2f0;
+        }
+
+        tr:nth-child(even) {
+            background-color: #edf2f0;
+        }
+
+        tr:hover {
+            background-color: rgba(7, 157, 86, 0.1);
+        }
+
+        /* CHART/IMAGE STYLES */
+        .chart-container,
+        .image-container {
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .chart-placeholder,
+        .image-placeholder {
+            background: linear-gradient(45deg, #edf2f0, #ffffff);
+            border: 2px dashed #079d56;
+            border-radius: 8px;
+            padding: 3rem;
+            margin: 1rem 0;
+            color: #079d56;
+            font-style: italic;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* HIGHLIGHT BOXES */
+        .highlight-box {
+            background: linear-gradient(135deg, #edf2f0, #ffffff);
+            border-left: 5px solid #f78d20;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .alert-box {
+            background: linear-gradient(135deg, rgba(244, 143, 53, 0.1), rgba(247, 141, 32, 0.05));
+            border: 1px solid #f48f35;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .alert-box h4 {
+            color: #f48f35;
+            margin-bottom: 0.5rem;
+        }
+
+        /* STATISTIC CARDS */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: #ffffff;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-top: 4px solid #f78d20;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #006b3f;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #079d56;
+            font-weight: 600;
+        }
+
+        /* FOOTER STYLES */
+        .footer {
+            background-color: #006b3f;
+            color: #ffffff;
+            padding: 2rem 3rem;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-section h4 {
+            color: #f78d20;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: #edf2f0;
+            text-decoration: none;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .footer-section a:hover {
+            color: #f78d20;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(237, 242, 240, 0.3);
+            padding-top: 1.5rem;
+            text-align: center;
+            color: #edf2f0;
+            font-size: 0.9rem;
+        }
+
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 768px) {
+
+            .header-content,
+            .body,
+            .footer {
+                padding: 1.5rem;
+            }
+
+            .report-title {
+                font-size: 2rem;
+            }
+
+            .report-meta {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* PRINT STYLES */
+        @media print {
+            .container {
+                box-shadow: none;
+            }
+
+            .header {
+                background: #006b3f !important;
+            }
+        }
+    </style>
+
+
+    <div class="container">
+        <!-- FIXED HEADER -->
+        <header class="header">
+            <div class="header-content">
+                <div class="company-logo">SuaEmpresa</div>
+                <h1 class="report-title">Relatório de Análise Empresarial</h1>
+                <div class="report-meta">
+                    <div class="meta-item">
+                        <span>📅 Gerado em: 16 de Agosto de 2025</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main class="body">
+            <section class="section">
+                <h2 class="section-title">Resumo Executivo</h2>
+                <p>Este relatório apresenta uma análise detalhada das vendas de produtos de tecnologia, com foco em
+                    quantidade vendida, preço unitário e total por estado. Observamos uma distribuição geográfica
+                    significativa nas vendas, com destaque para a diversidade de produtos comercializados. A análise
+                    visa identificar padrões de consumo e desempenho de vendas por região.</p>
+            </section>
+
+            <section class="section">
+                <h2 class="section-title">Desempenho Geral de Vendas</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value">R$ 50.932,50</div>
+                        <div class="stat-label">Total de Vendas</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">207</div>
+                        <div class="stat-label">Total de Itens Vendidos</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">12</div>
+                        <div class="stat-label">Total de Produtos</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2 class="section-title">Análise por Estado</h2>
+                <p>A distribuição das vendas por estado revela concentrações em determinadas regiões, com picos de
+                    atividade e variação na quantidade e valor total de produtos comercializados.</p>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Estado</th>
+                                <th>Total de Vendas no Estado</th>
+                                <th>Quantidade Total de Itens</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>SP</td>
+                                <td>R$ 12.500,00</td>
+                                <td>11</td>
+                            </tr>
+                            <tr>
+                                <td>RJ</td>
+                                <td>R$ 10.700,00</td>
+                                <td>15</td>
+                            </tr>
+                            <tr>
+                                <td>MG</td>
+                                <td>R$ 4.632,50</td>
+                                <td>43</td>
+                            </tr>
+                            <tr>
+                                <td>PR</td>
+                                <td>R$ 8.400,00</td>
+                                <td>43</td>
+                            </tr>
+                            <tr>
+                                <td>SC</td>
+                                <td>R$ 5.900,00</td>
+                                <td>12</td>
+                            </tr>
+                            <tr>
+                                <td>BA</td>
+                                <td>R$ 6.300,00</td>
+                                <td>15</td>
+                            </tr>
+                            <tr>
+                                <td>RS</td>
+                                <td>R$ 6.200,00</td>
+                                <td>22</td>
+                            </tr>
+                            <tr>
+                                <td>PE</td>
+                                <td>R$ 3.750,00</td>
+                                <td>15</td>
+                            </tr>
+                            <tr>
+                                <td>CE</td>
+                                <td>R$ 2.400,00</td>
+                                <td>30</td>
+                            </tr>
+                            <tr>
+                                <td>DF</td>
+                                <td>R$ 1.400,00</td>
+                                <td>2</td>
+                            </tr>
+                            <tr>
+                                <td>GO</td>
+                                <td>R$ 3.600,00</td>
+                                <td>20</td>
+                            </tr>
+                            <tr>
+                                <td>AM</td>
+                                <td>R$ 3.600,00</td>
+                                <td>12</td>
+                            </tr>
+                            <tr>
+                                <td>ES</td>
+                                <td>R$ 2.400,00</td>
+                                <td>6</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2 class="section-title">Produtos Mais Vendidos</h2>
+                <p>Analisamos os produtos com maior volume de vendas em termos de quantidade e valor total para
+                    identificar os itens de maior interesse no mercado.</p>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Produto</th>
+                                <th>Quantidade Vendida</th>
+                                <th>Preço Unitário Médio</th>
+                                <th>Total Vendido</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Pendrive 64GB</td>
+                                <td>40</td>
+                                <td>R$ 45,00</td>
+                                <td>R$ 1.800,00</td>
+                            </tr>
+                            <tr>
+                                <td>Mouse Sem Fio</td>
+                                <td>30</td>
+                                <td>R$ 80,00</td>
+                                <td>R$ 2.400,00</td>
+                            </tr>
+                            <tr>
+                                <td>Fone de Ouvido Bluetooth</td>
+                                <td>25</td>
+                                <td>R$ 120,50</td>
+                                <td>R$ 3.012,50</td>
+                            </tr>
+                            <tr>
+                                <td>Teclado Mecânico</td>
+                                <td>15</td>
+                                <td>R$ 250,00</td>
+                                <td>R$ 3.750,00</td>
+                            </tr>
+                            <tr>
+                                <td>Smartphone X</td>
+                                <td>10</td>
+                                <td>R$ 899,99</td>
+                                <td>R$ 8.999,90</td>
+                            </tr>
+                            <tr>
+                                <td>Memória RAM 16GB</td>
+                                <td>10</td>
+                                <td>R$ 320,00</td>
+                                <td>R$ 3.200,00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2 class="section-title">Insights e Recomendações</h2>
+                <div class="highlight-box">
+                    <ul>
+                        <li><strong>Concentração Geográfica:</strong> Os estados de São Paulo (SP), Rio de Janeiro (RJ)
+                            e Paraná (PR) representam os maiores mercados em termos de valor total de vendas.
+                            Estratégias de marketing e logística devem ser otimizadas para essas regiões.</li>
+                        <li><strong>Produtos de Alto Valor:</strong> O &#34;Smartphone X&#34; e a &#34;Placa de Vídeo
+                            RTX&#34; são os produtos com maior valor individual, indicando um nicho de mercado para
+                            produtos premium. Investir em marketing direcionado para esses itens pode ser vantajoso.
+                        </li>
+                        <li><strong>Volume e Acessibilidade:</strong> &#34;Pendrive 64GB&#34;, &#34;Mouse Sem Fio&#34; e
+                            &#34;Fone de Ouvido Bluetooth&#34; lideram em quantidade vendida. Estes são produtos de
+                            entrada e podem ser utilizados em campanhas de fidelização e pacotes promocionais.</li>
+                        <li><strong>Oportunidades de Expansão:</strong> Estados como Distrito Federal (DF) e Amazonas
+                            (AM) apresentam menor volume de vendas em comparação com outros. Análises mais profundas
+                            sobre as causas podem revelar oportunidades de crescimento nesses mercados.</li>
+                        <li><strong>Otimização de Estoque:</strong> É importante monitorar os níveis de estoque dos
+                            produtos mais vendidos para garantir a disponibilidade e evitar perdas de vendas.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2 class="section-title">Dados Brutos</h2>
+                <p>A tabela abaixo contém os dados brutos de vendas, permitindo uma consulta detalhada de cada
+                    transação.</p>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Produto</th>
+                                <th>Quantidade</th>
+                                <th>Preço Unitário</th>
+                                <th>Total</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Smartphone X</td>
+                                <td>10</td>
+                                <td>899,99</td>
+                                <td>8999,90</td>
+                                <td>SP</td>
+                            </tr>
+                            <tr>
+                                <td>Notebook Pro</td>
+                                <td>5</td>
+                                <td>1500,00</td>
+                                <td>7500,00</td>
+                                <td>RJ</td>
+                            </tr>
+                            <tr>
+                                <td>Fone de Ouvido Bluetooth</td>
+                                <td>25</td>
+                                <td>120,50</td>
+                                <td>3012,50</td>
+                                <td>MG</td>
+                            </tr>
+                            <tr>
+                                <td>Smart TV 55&#34;</td>
+                                <td>3</td>
+                                <td>2200,00</td>
+                                <td>6600,00</td>
+                                <td>PR</td>
+                            </tr>
+                            <tr>
+                                <td>Câmera Digital</td>
+                                <td>7</td>
+                                <td>450,00</td>
+                                <td>3150,00</td>
+                                <td>SC</td>
+                            </tr>
+                            <tr>
+                                <td>Tablet Y</td>
+                                <td>8</td>
+                                <td>600,00</td>
+                                <td>4800,00</td>
+                                <td>BA</td>
+                            </tr>
+                            <tr>
+                                <td>Monitor Gamer</td>
+                                <td>4</td>
+                                <td>950,00</td>
+                                <td>3800,00</td>
+                                <td>RS</td>
+                            </tr>
+                            <tr>
+                                <td>Teclado Mecânico</td>
+                                <td>15</td>
+                                <td>250,00</td>
+                                <td>3750,00</td>
+                                <td>PE</td>
+                            </tr>
+                            <tr>
+                                <td>Mouse Sem Fio</td>
+                                <td>30</td>
+                                <td>80,00</td>
+                                <td>2400,00</td>
+                                <td>CE</td>
+                            </tr>
+                            <tr>
+                                <td>Impressora Multifuncional</td>
+                                <td>2</td>
+                                <td>700,00</td>
+                                <td>1400,00</td>
+                                <td>DF</td>
+                            </tr>
+                            <tr>
+                                <td>Webcam HD</td>
+                                <td>20</td>
+                                <td>180,00</td>
+                                <td>3600,00</td>
+                                <td>GO</td>
+                            </tr>
+                            <tr>
+                                <td>Roteador Wi-Fi</td>
+                                <td>12</td>
+                                <td>300,00</td>
+                                <td>3600,00</td>
+                                <td>AM</td>
+                            </tr>
+                            <tr>
+                                <td>SSD 1TB</td>
+                                <td>6</td>
+                                <td>400,00</td>
+                                <td>2400,00</td>
+                                <td>ES</td>
+                            </tr>
+                            <tr>
+                                <td>Placa de Vídeo RTX</td>
+                                <td>1</td>
+                                <td>3500,00</td>
+                                <td>3500,00</td>
+                                <td>SP</td>
+                            </tr>
+                            <tr>
+                                <td>Memória RAM 16GB</td>
+                                <td>10</td>
+                                <td>320,00</td>
+                                <td>3200,00</td>
+                                <td>RJ</td>
+                            </tr>
+                            <tr>
+                                <td>Caixa de Som Bluetooth</td>
+                                <td>18</td>
+                                <td>90,00</td>
+                                <td>1620,00</td>
+                                <td>MG</td>
+                            </tr>
+                            <tr>
+                                <td>Pendrive 64GB</td>
+                                <td>40</td>
+                                <td>45,00</td>
+                                <td>1800,00</td>
+                                <td>PR</td>
+                            </tr>
+                            <tr>
+                                <td>HD Externo 2TB</td>
+                                <td>5</td>
+                                <td>550,00</td>
+                                <td>2750,00</td>
+                                <td>SC</td>
+                            </tr>
+                            <tr>
+                                <td>Mochila para Notebook</td>
+                                <td>10</td>
+                                <td>150,00</td>
+                                <td>1500,00</td>
+                                <td>BA</td>
+                            </tr>
+                            <tr>
+                                <td>Projetor Portátil</td>
+                                <td>2</td>
+                                <td>1200,00</td>
+                                <td>2400,00</td>
+                                <td>RS</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+        <!-- FIXED FOOTER -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Informações de Contato</h4>
+                    <p>Divisão de Análise - SuaEmpresa</p>
+                    <p>Email: analytics@suaempresa.com</p>
+                    <p>Telefone: +55 (11) 1234-5678</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Detalhes do Relatório</h4>
+                    <p>Gerado por: Analista de Negócios IA</p>
+                    <p>ID do Relatório: RPT-2025-Q3-001</p>
+                    <p>Classificação: Uso Interno</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Aviso Legal</h4>
+                    <p>Este relatório contém informações empresariais confidenciais. As análises e recomendações são
+                        baseadas nos dados disponíveis e nas condições de mercado no momento da geração.</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 SuaEmpresa. Todos os direitos reservados. | Gerado em sábado, 16 de agosto de 2025 às 16:15:09
+                </p>
+            </div>
+        </footer>
+    </div>
+
+
+    ```
+</body>
+
+</html>

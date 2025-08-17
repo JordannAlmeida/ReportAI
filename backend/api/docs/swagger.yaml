@@ -1,0 +1,259 @@
+definitions:
+  model.Report:
+    properties:
+      active:
+        type: boolean
+      create_at:
+        type: string
+      id:
+        type: integer
+      template:
+        type: string
+      update_at:
+        type: string
+      user_mail:
+        type: string
+    type: object
+  request_report.CreateReportReq:
+    properties:
+      template:
+        minLength: 1
+        type: string
+      user_mail:
+        type: string
+    required:
+    - template
+    - user_mail
+    type: object
+  request_report.TurnOnOffReq:
+    properties:
+      active:
+        type: boolean
+      id:
+        type: integer
+      version:
+        type: integer
+    required:
+    - id
+    - version
+    type: object
+  request_report.UpdateReportReq:
+    properties:
+      id:
+        type: integer
+      template:
+        minLength: 1
+        type: string
+    required:
+    - id
+    - template
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: support@yourcompany.com
+    name: ReportIA API Support
+    url: https://github.com/yourorg/reportia/issues
+  description: ReportIA is an API for managing, generating, and processing reports
+    using AI. It provides endpoints to create, update, list, filter, activate/deactivate,
+    and generate reports from uploaded files. The API is designed for integration
+    with modern web applications and supports file uploads, JSON requests, and advanced
+    filtering.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: https://github.com/yourorg/reportia/blob/main/TERMS.md
+  title: ReportIA API
+  version: "1.0"
+paths:
+  /api/v1/reports:
+    get:
+      description: Get all reports
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Report'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: List reports
+      tags:
+      - reports
+    post:
+      consumes:
+      - application/json
+      description: Create a new report
+      parameters:
+      - description: Create Report Request
+        in: body
+        name: report
+        required: true
+        schema:
+          $ref: '#/definitions/request_report.CreateReportReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Report'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Create report
+      tags:
+      - reports
+    put:
+      consumes:
+      - application/json
+      description: Update an existing report
+      parameters:
+      - description: Update Report Request
+        in: body
+        name: report
+        required: true
+        schema:
+          $ref: '#/definitions/request_report.UpdateReportReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Report'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Update report
+      tags:
+      - reports
+  /api/v1/reports/filter:
+    get:
+      description: Get a report by id and user_mail
+      parameters:
+      - description: Report ID
+        in: query
+        name: id
+        required: true
+        type: integer
+      - description: User Email
+        in: query
+        name: user_mail
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Report'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "422":
+          description: Unprocessable Entity
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Filter report
+      tags:
+      - reports
+  /api/v1/reports/generate:
+    post:
+      consumes:
+      - multipart/form-data
+      description: Generate a report by uploading a file
+      parameters:
+      - description: Report ID
+        in: formData
+        name: idReport
+        required: true
+        type: integer
+      - description: Prompt
+        in: formData
+        name: prompt
+        type: string
+      - description: File to upload
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - text/html
+      responses:
+        "200":
+          description: HTML report
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Generate report from file
+      tags:
+      - reports
+  /api/v1/reports/turnonoff:
+    post:
+      consumes:
+      - application/json
+      description: Activate or deactivate a report
+      parameters:
+      - description: Turn On/Off Request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request_report.TurnOnOffReq'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Turn report on or off
+      tags:
+      - reports
+swagger: "2.0"
