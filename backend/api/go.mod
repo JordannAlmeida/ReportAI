@@ -10,6 +10,7 @@ require (
 require (
 	github.com/go-playground/validator/v10 v10.27.0
 	github.com/lib/pq v1.10.9
+	github.com/sashabaranov/go-openai v1.41.1
 	github.com/swaggo/http-swagger v1.3.4
 	github.com/swaggo/swag v1.16.6
 	golang.org/x/net v0.43.0

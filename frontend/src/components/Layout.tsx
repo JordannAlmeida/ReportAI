@@ -7,11 +7,11 @@ export default function Layout() {
 
   const navigationItems = [
     {
-      name: 'Dashboard',
+      name: 'Home',
       path: '/',
       icon: (
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 9.75L12 3l9 6.75V20a1 1 0 01-1 1h-5a1 1 0 01-1-1v-5H10v5a1 1 0 01-1 1H4a1 1 0 01-1-1V9.75z" />
         </svg>
       )
     },
@@ -68,8 +68,8 @@ export default function Layout() {
               className={`
                 flex items-center rounded-lg transition-all duration-200 ease-in-out
                 hover:bg-orange hover:text-white hover:shadow-md hover:scale-105
-                ${location.pathname === item.path 
-                  ? 'bg-orange text-white shadow-md' 
+                ${location.pathname === item.path
+                  ? 'bg-orange text-white shadow-md'
                   : 'text-gray-700 hover:bg-orange hover:text-white'
                 }
                 ${isNavOpen ? 'p-3' : 'p-3 justify-center'}

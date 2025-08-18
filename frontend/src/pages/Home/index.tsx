@@ -4,7 +4,7 @@ export default function Home() {
   return (
     <div className="flex items-center justify-center p-8 min-h-screen">
       <div className="max-w-2xl text-center">
-        <div 
+        <div
           className="animate-pulse"
           style={{
             animation: 'fadeInUp 0.6s ease-out forwards'
@@ -17,8 +17,8 @@ export default function Home() {
             Transform your data into intelligent, comprehensive reports with the power of artificial intelligence
           </p>
         </div>
-        
-        <div 
+
+        <div
           className="opacity-0"
           style={{
             animation: 'fadeInUp 0.6s ease-out 0.3s forwards'
@@ -27,8 +27,14 @@ export default function Home() {
           <div className="bg-white/50 backdrop-blur-sm rounded-xl p-8 shadow-lg border border-gray-200">
             <h3 className="text-lg font-semibold text-gray-800 mb-4">Get Started</h3>
             <p className="text-gray-600">
-              Use the navigation sidebar to generate new reports or manage your existing ones. 
+              Use the navigation sidebar to generate new reports or manage your existing ones.
               Our AI will help you create detailed, professional reports from your data.
+              <br />
+              <br />
+              <br />
+              <strong>Important</strong>:
+              <br />
+              Consider submitting documents with values already computed, with calculus of sum, avg or any other relevant metrics. The LLM models can`t make calculus with precision.
             </p>
           </div>
         </div>

@@ -258,6 +258,7 @@ func (h *ReportHandler) GenerateReportFromFile(w http.ResponseWriter, r *http.Re
 		return
 	}
 	promptUser := r.FormValue("prompt")
+	llm := r.FormValue("llm")
 	model := r.FormValue("model")
 	file, fileHeader, err := r.FormFile("file")
 	if err != nil {
@@ -273,7 +274,7 @@ func (h *ReportHandler) GenerateReportFromFile(w http.ResponseWriter, r *http.Re
 	defer file.Close()
 	file.Seek(0, 0)
 	fmt.Printf("Received file: %s with size: %d bytes\n", fileHeader.Filename, fileHeader.Size)
-	rep, err := h.service.GenerateReportFromFile(r.Context(), idReport, promptUser, model, file, fileHeader.Filename, fileHeader.Header.Get("Content-Type"))
+	rep, err := h.service.GenerateReportFromFile(r.Context(), idReport, promptUser, llm, model, file, fileHeader.Filename, fileHeader.Header.Get("Content-Type"))
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		json.NewEncoder(w).Encode(map[string]string{"error": fmt.Sprintf("Could not generate report: %v", err)})

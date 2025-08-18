@@ -41,6 +41,7 @@ export class ReportApi {
     const formData = new FormData();
     formData.append("idReport", params.idReport.toString());
     if (params.prompt) formData.append("prompt", params.prompt);
+    if (params.llm) formData.append("llm", params.llm);
     if (params.model) formData.append("model", params.model);
     formData.append("file", params.file);
     const res = await axios.post(`${API_BASE_URL}/reports/generate`, formData, {

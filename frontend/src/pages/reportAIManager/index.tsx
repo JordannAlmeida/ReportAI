@@ -43,8 +43,8 @@ export default function ReportAIManager() {
     e.preventDefault();
     if (filterForm.id.trim()) {
       setIsFiltering(true);
-      await filterReports({ 
-        id: parseInt(filterForm.id), 
+      await filterReports({
+        id: parseInt(filterForm.id),
         user_mail: filterForm.user_mail.trim() || undefined,
         page: 1,
         page_size: pagination.pageSize
@@ -75,7 +75,7 @@ export default function ReportAIManager() {
   const handleEditReport = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!editingReport) return;
-    
+
     try {
       await updateReport(editingReport.id, formData.template);
       setIsEditModalOpen(false);
@@ -110,9 +110,9 @@ export default function ReportAIManager() {
     <div className="min-h-screen bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
-        <div 
+        <div
           className="mb-8 opacity-0"
-          style={{ 
+          style={{
             animation: isPageVisible ? 'slideInDown 0.6s ease-out forwards' : 'none'
           }}
         >
@@ -121,9 +121,9 @@ export default function ReportAIManager() {
         </div>
 
         {/* Filters and Actions */}
-        <div 
+        <div
           className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6 opacity-0 transform transition-all duration-500 hover:shadow-lg"
-          style={{ 
+          style={{
             animation: isPageVisible ? 'slideInUp 0.6s ease-out 0.2s forwards' : 'none'
           }}
         >
@@ -149,9 +149,9 @@ export default function ReportAIManager() {
                 />
               </div>
               <div className="flex gap-2">
-                <Button 
-                  type="submit" 
-                  variant="outline" 
+                <Button
+                  type="submit"
+                  variant="outline"
                   isLoading={loading}
                   className="transform hover:scale-105 transition-all duration-200"
                 >
@@ -160,9 +160,9 @@ export default function ReportAIManager() {
                   </svg>
                   Search
                 </Button>
-                <Button 
-                  type="button" 
-                  variant="secondary" 
+                <Button
+                  type="button"
+                  variant="secondary"
                   onClick={handleClearFilter}
                   className="transform hover:scale-105 transition-all duration-200"
                 >
@@ -172,7 +172,7 @@ export default function ReportAIManager() {
             </form>
 
             {/* Create Button */}
-            <Button 
+            <Button
               onClick={() => setIsCreateModalOpen(true)}
               className="whitespace-nowrap transform hover:scale-105 transition-all duration-200"
             >
@@ -185,7 +185,7 @@ export default function ReportAIManager() {
 
           {/* Filter Status */}
           {isFiltering && (
-            <div 
+            <div
               className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-md opacity-0"
               style={{ animation: 'slideInLeft 0.5s ease-out forwards' }}
             >
@@ -195,9 +195,9 @@ export default function ReportAIManager() {
                   {filterForm.id && filterForm.user_mail && ', '}
                   {filterForm.user_mail && `Email: ${filterForm.user_mail}`}
                 </span>
-                <Button 
-                  variant="outline" 
-                  size="sm" 
+                <Button
+                  variant="outline"
+                  size="sm"
                   onClick={handleClearFilter}
                   className="transform hover:scale-110 transition-all duration-200"
                 >
@@ -210,7 +210,7 @@ export default function ReportAIManager() {
 
         {/* Error Message */}
         {error && (
-          <div 
+          <div
             className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6 opacity-0"
             style={{ animation: 'slideInLeft 0.5s ease-out forwards, shake 0.5s ease-in-out 0.5s' }}
           >
@@ -224,16 +224,16 @@ export default function ReportAIManager() {
         )}
 
         {/* Reports Table */}
-        <div 
+        <div
           className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden opacity-0 transform transition-all duration-500 hover:shadow-lg"
-          style={{ 
+          style={{
             animation: isPageVisible ? 'slideInUp 0.6s ease-out 0.4s forwards' : 'none'
           }}
         >
           <div className="px-6 py-4 border-b border-gray-200">
             <h2 className="text-lg font-semibold text-gray-900">Reports</h2>
           </div>
-          
+
           {loading && reports.length === 0 ? (
             <div className="flex items-center justify-center h-64">
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-orange"></div>
@@ -252,7 +252,7 @@ export default function ReportAIManager() {
               </div>
             </div>
           ) : (
-            <>
+            <div>
               <div className="overflow-x-auto">
                 <table className="min-w-full divide-y divide-gray-200">
                   <thead className="bg-gray-50">
@@ -268,10 +268,10 @@ export default function ReportAIManager() {
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
                     {reports.map((report, index) => (
-                      <tr 
-                        key={report.id} 
+                      <tr
+                        key={report.id}
                         className="hover:bg-gray-50 transform hover:scale-[1.01] transition-all duration-200 opacity-0 animate-fadeInUp"
-                        style={{ 
+                        style={{
                           animation: `fadeInUp 0.5s ease-out ${index * 0.1}s forwards`
                         }}
                       >
@@ -287,11 +287,10 @@ export default function ReportAIManager() {
                           {report.user_mail}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full transform hover:scale-110 transition-all duration-200 ${
-                            report.active 
-                              ? 'bg-green-100 text-green-800 animate-pulse' 
-                              : 'bg-red-100 text-red-800'
-                          }`}>
+                          <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full transform hover:scale-110 transition-all duration-200 ${report.active
+                            ? 'bg-green-100 text-green-800 animate-pulse'
+                            : 'bg-red-100 text-red-800'
+                            }`}>
                             {report.active ? 'Active' : 'Inactive'}
                           </span>
                         </td>
@@ -304,8 +303,8 @@ export default function ReportAIManager() {
                         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                           <Dropdown
                             trigger={
-                              <Button 
-                                variant="secondary" 
+                              <Button
+                                variant="secondary"
                                 size="sm"
                                 className="transform hover:scale-110 hover:rotate-90 transition-all duration-200"
                               >
@@ -333,8 +332,7 @@ export default function ReportAIManager() {
                 </table>
               </div>
 
-              {/* Pagination */}
-              <div 
+              <div
                 className="opacity-0"
                 style={{ animation: 'fadeInUp 0.5s ease-out 0.6s forwards' }}
               >
@@ -347,7 +345,7 @@ export default function ReportAIManager() {
                   onPageSizeChange={changePageSize}
                 />
               </div>
-            </>
+            </div>
           )}
         </div>
 
@@ -360,7 +358,7 @@ export default function ReportAIManager() {
           }}
           title="Create New Report"
         >
-          <div 
+          <div
             className="opacity-0"
             style={{ animation: isCreateModalOpen ? 'slideInUp 0.3s ease-out forwards' : 'none' }}
           >
@@ -387,9 +385,9 @@ export default function ReportAIManager() {
                 />
               </div>
               <div className="flex justify-end gap-3 pt-4">
-                <Button 
-                  type="button" 
-                  variant="secondary" 
+                <Button
+                  type="button"
+                  variant="secondary"
                   onClick={() => {
                     setIsCreateModalOpen(false);
                     setFormData({ template: '', user_mail: '' });
@@ -398,8 +396,8 @@ export default function ReportAIManager() {
                 >
                   Cancel
                 </Button>
-                <Button 
-                  type="submit" 
+                <Button
+                  type="submit"
                   isLoading={loading}
                   className="transform hover:scale-105 transition-all duration-200"
                 >
@@ -430,7 +428,7 @@ export default function ReportAIManager() {
           }}
           title="Edit Report"
         >
-          <div 
+          <div
             className="opacity-0"
             style={{ animation: isEditModalOpen ? 'slideInUp 0.3s ease-out forwards' : 'none' }}
           >
@@ -447,9 +445,9 @@ export default function ReportAIManager() {
                 />
               </div>
               <div className="flex justify-end gap-3 pt-4">
-                <Button 
-                  type="button" 
-                  variant="secondary" 
+                <Button
+                  type="button"
+                  variant="secondary"
                   onClick={() => {
                     setIsEditModalOpen(false);
                     setEditingReport(null);
@@ -459,8 +457,8 @@ export default function ReportAIManager() {
                 >
                   Cancel
                 </Button>
-                <Button 
-                  type="submit" 
+                <Button
+                  type="submit"
                   isLoading={loading}
                   className="transform hover:scale-105 transition-all duration-200"
                 >

@@ -6,7 +6,10 @@ func GetPromptToGenerateAnalysisFromFile(template string, additionalInformation 
 		Your html needs to follow the next structure of template:
 		` + template + `
 		Remember, you don't need to include any additional information outside of the provided template. Just the <html> tags directly inside the destination block of dynamic body.
-		**Important**: All text must be written in pt-br portuguese.
+		You can add graphs using javascript libraries like Chart.js or D3.js, but ensure they are properly formatted within the HTML structure. Also, you can add script tag to do any necessary data manipulation or visualization.
+		**Important**:
+		- All text must be written in pt-br portuguese.
+		- Don't use placeholder for graphs, create real graphs using data from the file and javascript code.
 	`
 	if additionalInformation != "" {
 		prompt += "\n\n**Additional information:**\n" + additionalInformation

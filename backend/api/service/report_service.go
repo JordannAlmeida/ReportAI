@@ -5,19 +5,18 @@ import (
 	"errors"
 	"io"
 	"reportia/helper"
-	"reportia/integration/google"
+	LLMFactory "reportia/integration/llm"
 	"reportia/model"
 	const_model "reportia/model/const"
 	"reportia/repository"
 )
 
 type ReportService struct {
-	repo      *repository.ReportRepository
-	geminiApi *google.GeminiAPI
+	repo *repository.ReportRepository
 }
 
-func NewReportService(repo *repository.ReportRepository, geminiApi *google.GeminiAPI) *ReportService {
-	return &ReportService{repo: repo, geminiApi: geminiApi}
+func NewReportService(repo *repository.ReportRepository) *ReportService {
+	return &ReportService{repo: repo}
 }
 
 func (s *ReportService) List(ctx context.Context) ([]model.Report, error) {
@@ -117,7 +116,7 @@ func (s *ReportService) TurnOnOff(ctx context.Context, id int, active bool) erro
 	return s.repo.TurnOnOff(ctx, id, active)
 }
 
-func (s *ReportService) GenerateReportFromFile(ctx context.Context, idReportTemplate int, promptUser string, model string, file io.Reader, fileName string, fileType string) (string, error) {
+func (s *ReportService) GenerateReportFromFile(ctx context.Context, idReportTemplate int, promptUser string, llm string, model string, file io.Reader, fileName string, fileType string) (string, error) {
 	if file == nil || fileName == "" || fileType == "" {
 		return "", errors.New("file, fileName and fileType are required")
 	}
@@ -129,7 +128,8 @@ func (s *ReportService) GenerateReportFromFile(ctx context.Context, idReportTemp
 		return "", errors.New("report not found")
 	}
 	promptToLLM := const_model.GetPromptToGenerateAnalysisFromFile(reportModel.Template, promptUser)
-	responseLLM, err := s.geminiApi.GenerateAnalisysFromReportFile(ctx, promptToLLM, model, file, fileName, fileType)
+	llmInstance := LLMFactory.NewLLM(llm)
+	responseLLM, err := llmInstance.GenerateAnalisysFromReportFile(ctx, promptToLLM, model, file, fileName, fileType)
 	if err != nil {
 		return "", err
 	}

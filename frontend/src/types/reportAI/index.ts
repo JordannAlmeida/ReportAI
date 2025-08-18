@@ -45,6 +45,7 @@ export type ListReportsParams = {
 export type GenerateReportFromFileParams = {
   idReport: number;
   prompt?: string;
+  llm: string;
   model?: string;
   file: File;
 }

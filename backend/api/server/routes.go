@@ -3,7 +3,6 @@ package server
 import (
 	"database/sql"
 	"reportia/handler"
-	"reportia/integration/google"
 	"reportia/repository"
 	"reportia/service"
 
@@ -33,8 +32,7 @@ func (s *Server) registerHealthRoutes() {
 
 func (s *Server) registerReportRoutes(r *mux.Router, db *sql.DB) {
 	repo := repository.NewReportRepository(db)
-	geminiApi := google.NewGeminiAPI(s.cfg.GeminiAPIKey, db, s.cfg.GeminiModelDefault)
-	service := service.NewReportService(repo, geminiApi)
+	service := service.NewReportService(repo)
 	h := handler.NewReportHandler(service)
 
 	r.HandleFunc("/reports", h.List).Methods("GET")

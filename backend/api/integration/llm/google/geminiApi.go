@@ -1,7 +1,6 @@
 package google
 
 import (
-	"database/sql"
 	"io"
 	"time"
 
@@ -11,12 +10,11 @@ import (
 
 type GeminiAPI struct {
 	apiKey string
-	db     *sql.DB
 	model  string
 }
 
-func NewGeminiAPI(apiKey string, db *sql.DB, model string) *GeminiAPI {
-	return &GeminiAPI{apiKey: apiKey, db: db, model: model}
+func NewGeminiAPI(apiKey string, model string) *GeminiAPI {
+	return &GeminiAPI{apiKey: apiKey, model: model}
 }
 
 func (gemini *GeminiAPI) GenerateAnalisysFromReportFile(ctx context.Context, prompt string, model string, file io.Reader, fileName string, fileType string) (string, error) {
