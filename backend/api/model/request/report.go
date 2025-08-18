@@ -10,9 +10,8 @@ type CreateReportReq struct {
 }
 
 type TurnOnOffReq struct {
-	ID      int  `json:"id" validate:"required,gt=0"`
-	Version int  `json:"version" validate:"required,gt=0"`
-	Active  bool `json:"active"`
+	ID     int  `json:"id" validate:"required,gt=0"`
+	Active bool `json:"active"`
 }
 
 type UpdateReportReq struct {
