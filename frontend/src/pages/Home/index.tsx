@@ -1,6 +1,8 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 export default function Home() {
+  const { t } = useTranslation();
   return (
     <div className="flex items-center justify-center p-8 min-h-screen">
       <div className="max-w-2xl text-center">
@@ -11,10 +13,10 @@ export default function Home() {
           }}
         >
           <h1 className="text-5xl font-bold text-foreground mb-6 bg-gradient-to-r from-orange to-orange-light bg-clip-text text-transparent">
-            Welcome to Report AI
+            {t('home.welcome')}
           </h1>
           <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-            Transform your data into intelligent, comprehensive reports with the power of artificial intelligence
+            {t('home.description')}
           </p>
         </div>
 
@@ -25,16 +27,16 @@ export default function Home() {
           }}
         >
           <div className="bg-white/50 backdrop-blur-sm rounded-xl p-8 shadow-lg border border-gray-200">
-            <h3 className="text-lg font-semibold text-gray-800 mb-4">Get Started</h3>
+            <h3 className="text-lg font-semibold text-gray-800 mb-4">{t('home.getStartedTitle')}</h3>
             <p className="text-gray-600">
-              Use the navigation sidebar to generate new reports or manage your existing ones.
-              Our AI will help you create detailed, professional reports from your data.
+              {t('home.getStartedBody')}
               <br />
               <br />
               <br />
-              <strong>Important</strong>:
+              <strong>{t('home.important')}</strong>:
               <br />
-              Consider submitting documents with values already computed, with calculus of sum, avg or any other relevant metrics. The LLM models can`t make calculus with precision.
+              <br />
+              {t('home.importantNote')}
             </p>
           </div>
         </div>

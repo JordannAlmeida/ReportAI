@@ -1,0 +1,139 @@
+{
+    "common": {
+        "loading": "Carregando...",
+        "error": "Ocorreu um erro",
+        "success": "Sucesso!",
+        "cancel": "Cancelar",
+        "save": "Salvar",
+        "delete": "Excluir",
+        "edit": "Editar",
+        "submit": "Enviar",
+        "download": "Baixar",
+        "view": "Visualizar",
+        "goHome": "Ir para Início",
+        "remove": "Remover",
+        "choose": "Escolher",
+        "optional": "Opcional",
+        "required": "Obrigatório",
+        "or": "ou",
+        "dragAndDrop": "arraste e solte",
+        "fileSize": "{{size}}"
+    },
+    "auth": {
+        "login": "Entrar",
+        "logout": "Sair",
+        "email": "Email",
+        "password": "Senha"
+    },
+    "reports": {
+        "generate": "Gerar Relatório",
+        "title": "Título do Relatório",
+        "description": "Descrição",
+        "form": {
+            "file_type_error": "Por favor, selecione um arquivo válido: PDF, CSV ou Excel (.xls, .xlsx)",
+            "required_fields": "Por favor, forneça o ID do Relatório, selecione um LLM e selecione um arquivo",
+            "report_id": "ID do Relatório",
+            "report_id_placeholder": "Digite o ID do template",
+            "llm": "LLM",
+            "llm_placeholder": "Selecione o LLM",
+            "model": "Modelo",
+            "model_placeholder": "ex: gpt-4, gemini-pro",
+            "prompt": "Prompt Adicional",
+            "prompt_placeholder": "Adicione instruções específicas ou contexto para a geração do relatório...",
+            "upload_file": "Upload de Arquivo",
+            "file_types": "Arquivos PDF, CSV, Excel até 10MB",
+            "generating": "Gerando Relatório..."
+        },
+        "manager": {
+            "title": "Gerenciador de Relatórios",
+            "subtitle": "Visualize e gerencie todos os seus relatórios gerados",
+            "noReports": "Nenhum relatório encontrado",
+            "noReportsDesc": "Comece criando um novo relatório",
+            "noReportsFilter": "Tente ajustar seus filtros ou",
+            "filters": {
+                "reportId": "ID do Relatório",
+                "reportIdPlaceholder": "Digite o ID do relatório",
+                "userEmail": "Email do Usuário",
+                "userEmailPlaceholder": "Digite o email do usuário",
+                "searchButton": "Buscar",
+                "clearButton": "Limpar",
+                "clearFilters": "Limpar Filtros",
+                "filteringBy": "Filtrando por:",
+                "id": "ID:",
+                "email": "Email:"
+            },
+            "table": {
+                "id": "ID",
+                "template": "Template",
+                "userEmail": "Email do Usuário",
+                "status": "Status",
+                "created": "Criado em",
+                "updated": "Atualizado em",
+                "actions": "Ações",
+                "loading": "Carregando relatórios..."
+            },
+            "status": {
+                "active": "Ativo",
+                "inactive": "Inativo"
+            },
+            "actions": {
+                "edit": "Editar Relatório",
+                "activate": "Ativar",
+                "deactivate": "Desativar",
+                "delete": "Excluir"
+            },
+            "search": "Buscar relatórios...",
+            "filter": "Filtrar por",
+            "filterAll": "Todos",
+            "filterPending": "Pendente",
+            "filterCompleted": "Concluído",
+            "filterError": "Erro",
+            "date": "Data",
+            "create": {
+                "title": "Criar Novo Relatório",
+                "template": "Template",
+                "templatePlaceholder": "Digite o template HTML...",
+                "userEmail": "Email do Usuário",
+                "userEmailPlaceholder": "Digite o email do usuário",
+                "cancel": "Cancelar",
+                "submit": "Criar Relatório",
+                "creating": "Criando..."
+            },
+            "edit": {
+                "title": "Editar Relatório",
+                "template": "Template",
+                "templatePlaceholder": "Digite o template HTML...",
+                "cancel": "Cancelar",
+                "submit": "Atualizar Relatório",
+                "updating": "Atualizando..."
+            }
+        },
+        "generate_success": "Relatório gerado com sucesso",
+        "generate_error": "Erro ao gerar relatório",
+        "view": "Visualizar Relatório",
+        "delete": "Excluir Relatório",
+        "edit": "Editar Relatório",
+        "new": "Gerar Novo Relatório",
+        "upload_title": "Faça upload de um arquivo e gere um relatório com IA",
+        "preview": "Visualização do Relatório",
+        "preview_description": "Relatório interativo com gráficos e funcionalidades completas",
+        "download": "Baixar Relatório",
+        "view_fullscreen": "Ver em Tela Cheia",
+        "generated": {
+            "title": "Relatório Gerado",
+            "success_message": "Seu relatório foi gerado com sucesso"
+        }
+    },
+    "home": {
+        "welcome": "Bem-vindo ao ReportAI",
+        "description": "Gere relatórios com IA de forma rápida e eficiente com arquivos como PDF, CSV ou Excel.",
+        "getStartedTitle": "Comece Agora",
+        "getStartedBody": "Use a barra lateral de navegação para gerar novos relatórios ou gerenciar os seus existentes. Nossa IA vai te ajudar a criar relatórios detalhados e profissionais a partir dos seus dados.",
+        "important": "Importante",
+        "importantNote": "Considere enviar documentos com valores já calculados, como soma, média ou outras métricas relevantes. Os modelos LLM não conseguem fazer cálculos com precisão."
+    },
+    "notFound": {
+        "title": "Página Não Encontrada",
+        "description": "A página que você está procurando não existe"
+    }
+}

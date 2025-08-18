@@ -1,0 +1,137 @@
+{
+    "common": {
+        "loading": "Loading...",
+        "error": "An error occurred",
+        "success": "Success!",
+        "cancel": "Cancel",
+        "save": "Save",
+        "delete": "Delete",
+        "edit": "Edit",
+        "submit": "Submit",
+        "download": "Download",
+        "view": "View",
+        "goHome": "Go Home",
+        "remove": "Remove",
+        "choose": "Choose",
+        "optional": "Optional",
+        "required": "Required",
+        "or": "or",
+        "dragAndDrop": "drag and drop",
+        "fileSize": "{{size}}"
+    },
+    "auth": {
+        "login": "Login",
+        "logout": "Logout",
+        "email": "Email",
+        "password": "Password"
+    },
+    "reports": {
+        "generate": "Generate Report",
+        "title": "Report Title",
+        "description": "Description",
+        "manager": {
+            "title": "Report AI Manager",
+            "subtitle": "Manage your AI-powered reports efficiently",
+            "noReports": "No reports found",
+            "noReportsDesc": "Get started by creating a new report",
+            "noReportsFilter": "Try adjusting your filters or",
+            "search": "Search reports...",
+            "filter": "Filter by",
+            "filterAll": "All",
+            "filterPending": "Pending",
+            "filterCompleted": "Completed",
+            "filterError": "Error",
+            "date": "Date",
+            "filters": {
+                "reportId": "Report ID",
+                "reportIdPlaceholder": "Enter report ID",
+                "userEmail": "User Email",
+                "userEmailPlaceholder": "Enter user email",
+                "searchButton": "Search",
+                "clearButton": "Clear",
+                "clearFilters": "Clear Filters",
+                "filteringBy": "Filtering by:",
+                "id": "ID:",
+                "email": "Email:"
+            },
+            "table": {
+                "id": "ID",
+                "template": "Template",
+                "userEmail": "User Email",
+                "status": "Status",
+                "created": "Created",
+                "updated": "Updated",
+                "actions": "Actions",
+                "loading": "Loading reports..."
+            },
+            "status": {
+                "active": "Active",
+                "inactive": "Inactive"
+            },
+            "actions": {
+                "edit": "Edit Report",
+                "activate": "Activate",
+                "deactivate": "Deactivate",
+                "delete": "Delete"
+            },
+            "create": {
+                "title": "Create New Report",
+                "template": "Template",
+                "templatePlaceholder": "Enter HTML template...",
+                "userEmail": "User Email",
+                "userEmailPlaceholder": "Enter user email",
+                "cancel": "Cancel",
+                "submit": "Create Report",
+                "creating": "Creating..."
+            },
+            "edit": {
+                "title": "Edit Report",
+                "template": "Template",
+                "templatePlaceholder": "Enter HTML template...",
+                "cancel": "Cancel",
+                "submit": "Update Report",
+                "updating": "Updating..."
+            }
+        },
+        "generate_success": "Report generated successfully",
+        "generate_error": "Error generating report",
+        "view": "View Report",
+        "delete": "Delete Report",
+        "edit": "Edit Report",
+        "new": "Generate New Report",
+        "upload_title": "Upload a file and generate an AI-powered report",
+        "preview": "Report Preview",
+        "preview_description": "Interactive report with charts and full functionality",
+        "download": "Download Report",
+        "view_fullscreen": "View Fullscreen",
+        "form": {
+            "report_id": "Report ID",
+            "report_id_placeholder": "Enter template ID",
+            "llm": "LLM",
+            "llm_placeholder": "Select LLM",
+            "model": "Model",
+            "model_placeholder": "e.g., gpt-4, gemini-pro",
+            "prompt": "Additional Prompt",
+            "prompt_placeholder": "Add any specific instructions or context for the report generation...",
+            "upload_file": "Upload File",
+            "file_types": "PDF, CSV, Excel files up to 10MB",
+            "generating": "Generating Report..."
+        },
+        "generated": {
+            "title": "Generated Report",
+            "success_message": "Your report has been successfully generated"
+        }
+    },
+    "home": {
+        "welcome": "Welcome to ReportAI",
+        "description": "Generate AI-powered reports quickly and efficiently by files like PDF, CSV, or Excel.",
+        "getStartedTitle": "Get Started",
+        "getStartedBody": "Use the navigation sidebar to generate new reports or manage your existing ones. Our AI will help you create detailed, professional reports from your data.",
+        "important": "Important",
+        "importantNote": "Consider submitting documents with values already computed, with calculus of sum, avg or any other relevant metrics. The LLM models can't make calculus with precision."
+    },
+    "notFound": {
+        "title": "Page Not Found",
+        "description": "The page you're looking for doesn't exist"
+    }
+}

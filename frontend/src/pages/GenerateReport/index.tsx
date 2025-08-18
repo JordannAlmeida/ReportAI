@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '../../components/ui/Button';
 import { Input, Textarea } from '../../components/ui/Input';
-import { Dropdown } from '../../components/ui/Dropdown'; // Add this import
+import { Dropdown } from '../../components/ui/Dropdown';
 import { useReportGeneration } from '../../hooks/useReportGeneration';
 
 interface GenerateFormData {
@@ -13,6 +14,7 @@ interface GenerateFormData {
 }
 
 export default function GenerateReport() {
+  const { t } = useTranslation();
   const { loading, error, generatedReport, generateReport, resetReport, downloadReport } = useReportGeneration();
   const [formData, setFormData] = useState<GenerateFormData>({
     idReport: '',
@@ -58,7 +60,7 @@ export default function GenerateReport() {
 
   const handleFileSelect = (file: File) => {
     if (!validateFile(file)) {
-      alert('Please select a valid file: PDF, CSV, or Excel (.xls, .xlsx)');
+      alert(t('reports.form.file_type_error'));
       return;
     }
     setFormData(prev => ({ ...prev, file }));
@@ -98,7 +100,7 @@ export default function GenerateReport() {
     }
 
     if (!formData.idReport || !formData.file || !formData.llm) {
-      alert('Please provide Report ID, select an LLM, and select a file');
+      alert(t('reports.form.required_fields'));
       return;
     }
 
@@ -166,8 +168,8 @@ export default function GenerateReport() {
       <div className="min-h-screen bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-foreground mb-2">Generated Report</h1>
-            <p className="text-gray-600">Your report has been successfully generated</p>
+            <h1 className="text-3xl font-bold text-foreground mb-2">{t('reports.generated.title')}</h1>
+            <p className="text-gray-600">{t('reports.generated.success_message')}</p>
           </div>
 
           <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
@@ -190,7 +192,7 @@ export default function GenerateReport() {
                     d="M12 10v4m0 0l-3-3m3 3l3-3M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                   />
                 </svg>
-                Download Report
+                {t('reports.download')}
               </Button>
               <Button
                 variant="outline"
@@ -200,7 +202,7 @@ export default function GenerateReport() {
                 <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8V4a1 1 0 011-1h4M4 16v4a1 1 0 001 1h4m8-20h4a1 1 0 011 1v4m0 8v4a1 1 0 01-1 1h-4" />
                 </svg>
-                View Fullscreen
+                {t('reports.view_fullscreen')}
               </Button>
               <Button
                 variant="outline"
@@ -210,15 +212,15 @@ export default function GenerateReport() {
                 <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
                 </svg>
-                Generate New Report
+                {t('reports.new')}
               </Button>
             </div>
 
             <div className="border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition-shadow duration-200">
               <div className="bg-gray-50 px-4 py-3 border-b border-gray-200">
-                <h3 className="text-lg font-medium text-gray-900">Report Preview</h3>
+                <h3 className="text-lg font-medium text-gray-900">{t('reports.preview')}</h3>
                 <p className="text-sm text-gray-500 mt-1">
-                  Interactive report with charts and full functionality
+                  {t('reports.preview_description')}
                 </p>
               </div>
               <div className="bg-white" style={{ height: '80vh' }}>
@@ -226,7 +228,7 @@ export default function GenerateReport() {
                   ref={iframeRef}
                   src={iframeUrl}
                   className="w-full h-full border-0"
-                  title="Generated Report"
+                  title={t('reports.preview')}
                   sandbox="allow-scripts allow-same-origin allow-downloads"
                   loading="lazy"
                   onLoad={() => {
@@ -253,8 +255,8 @@ export default function GenerateReport() {
             animation: isFormVisible ? 'slideInDown 0.6s ease-out forwards' : 'none'
           }}
         >
-          <h1 className="text-3xl font-bold text-foreground mb-2">Generate Report</h1>
-          <p className="text-gray-600">Upload a file and generate an AI-powered report</p>
+          <h1 className="text-3xl font-bold text-foreground mb-2">{t('reports.generate')}</h1>
+          <p className="text-gray-600">{t('reports.upload_title')}</p>
         </div>
 
         {error && (
@@ -286,9 +288,9 @@ export default function GenerateReport() {
             >
               <div className="transform hover:scale-105 transition-all duration-200">
                 <Input
-                  label="Report ID"
+                  label={t('reports.form.report_id')}
                   type="number"
-                  placeholder="Enter template ID"
+                  placeholder={t('reports.form.report_id_placeholder')}
                   value={formData.idReport}
                   onChange={(e) => setFormData(prev => ({ ...prev, idReport: e.target.value }))}
                   required
@@ -298,7 +300,7 @@ export default function GenerateReport() {
               {/* LLM Dropdown */}
               <div className="transform hover:scale-105 transition-all duration-200">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  LLM <span className="text-red-500">*</span>
+                  {t('reports.form.llm')} <span className="text-red-500">*</span>
                 </label>
                 <Dropdown
                   items={llmOptions}
@@ -306,8 +308,8 @@ export default function GenerateReport() {
                     <div className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-orange focus:border-transparent cursor-pointer flex items-center justify-between">
                       <span className={formData.llm ? 'text-gray-900' : 'text-gray-500'}>
                         {formData.llm ?
-                          llmOptions.find(option => option.onClick.toString().includes(formData.llm))?.label || 'Select LLM'
-                          : 'Select LLM'
+                          llmOptions.find(option => option.onClick.toString().includes(formData.llm))?.label || t('reports.form.llm_placeholder')
+                          : t('reports.form.llm_placeholder')
                         }
                       </span>
                       <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -320,9 +322,9 @@ export default function GenerateReport() {
 
               <div className="transform hover:scale-105 transition-all duration-200">
                 <Input
-                  label="Model (Optional)"
+                  label={`${t('reports.form.model')} (${t('common.optional')})`}
                   type="text"
-                  placeholder="e.g., gpt-4, gemini-pro"
+                  placeholder={t('reports.form.model_placeholder')}
                   value={formData.model}
                   onChange={(e) => setFormData(prev => ({ ...prev, model: e.target.value }))}
                 />
@@ -336,8 +338,8 @@ export default function GenerateReport() {
               }}
             >
               <Textarea
-                label="Additional Prompt (Optional)"
-                placeholder="Add any specific instructions or context for the report generation..."
+                label={`${t('reports.form.prompt')} (${t('common.optional')})`}
+                placeholder={t('reports.form.prompt_placeholder')}
                 value={formData.prompt}
                 onChange={(e) => setFormData(prev => ({ ...prev, prompt: e.target.value }))}
                 rows={4}
@@ -351,7 +353,7 @@ export default function GenerateReport() {
               }}
             >
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Upload File <span className="text-red-500">*</span>
+                {t('reports.form.upload_file')} <span className="text-red-500">*</span>
               </label>
               <div
                 className={`relative border-2 border-dashed rounded-lg p-6 text-center transition-all duration-300 transform hover:scale-105 ${dragActive
@@ -390,7 +392,7 @@ export default function GenerateReport() {
                       onClick={() => setFormData(prev => ({ ...prev, file: null }))}
                       className="transform hover:scale-110 transition-all duration-200"
                     >
-                      Remove
+                      {t('common.remove')}
                     </Button>
                   </div>
                 ) : (
@@ -411,11 +413,11 @@ export default function GenerateReport() {
                         onClick={() => fileInputRef.current?.click()}
                         className="transform hover:scale-105 transition-all duration-200"
                       >
-                        Choose file
+                        {t('common.choose')}
                       </Button>
-                      <span className="ml-2">or drag and drop</span>
+                      <span className="ml-2">{t('common.or')} {t('common.dragAndDrop')}</span>
                     </p>
-                    <p className="text-xs text-gray-500">PDF, CSV, Excel files up to 10MB</p>
+                    <p className="text-xs text-gray-500">{t('reports.form.file_types')}</p>
                   </div>
                 )}
               </div>
@@ -433,7 +435,7 @@ export default function GenerateReport() {
                 disabled={!formData.idReport || !formData.file || !formData.llm || loading}
                 className="transform hover:scale-105 transition-all duration-200 disabled:hover:scale-100"
               >
-                {loading ? 'Generating Report...' : 'Generate Report'}
+                {loading ? t('reports.form.generating') : t('reports.generate')}
               </Button>
             </div>
           </form>

@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import { Link, useLocation, Outlet } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { LanguageSwitcher } from './ui/LanguageSwitcher';
 
 export default function Layout() {
   const [isNavOpen, setIsNavOpen] = useState(true);
   const location = useLocation();
+  const { t } = useTranslation();
 
   const navigationItems = [
     {
-      name: 'Home',
+      name: t('home.title', 'Home'),
       path: '/',
       icon: (
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -16,7 +19,7 @@ export default function Layout() {
       )
     },
     {
-      name: 'Generate Report',
+      name: t('reports.generate'),
       path: '/generate',
       icon: (
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -25,7 +28,7 @@ export default function Layout() {
       )
     },
     {
-      name: 'Report Manager',
+      name: t('reports.manager.title'),
       path: '/reports',
       icon: (
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -43,6 +46,9 @@ export default function Layout() {
         <div className={`p-4 border-b border-gray-200 flex items-center ${isNavOpen ? 'justify-between' : 'justify-center'}`}>
           <div className={`${isNavOpen ? 'block' : 'hidden'} transition-opacity duration-300`}>
             <h2 className="text-xl font-bold text-gray-800">Report AI</h2>
+          </div>
+          <div className={`${isNavOpen ? 'block' : 'hidden'} transition-opacity duration-300`}>
+            <LanguageSwitcher />
           </div>
           <button
             onClick={() => setIsNavOpen(!isNavOpen)}
@@ -96,7 +102,7 @@ export default function Layout() {
         {/* Sidebar Footer */}
         <div className={`p-4 border-t border-gray-200 ${!isNavOpen ? 'text-center' : ''}`}>
           <div className={`${isNavOpen ? 'block' : 'hidden'} transition-opacity duration-300`}>
-            <p className="text-sm text-gray-500">AI-powered reporting</p>
+            <p className="text-sm text-gray-500">{t('home.description')}</p>
           </div>
           {!isNavOpen && (
             <div className="flex justify-center">

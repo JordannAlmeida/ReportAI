@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '../../components/ui/Button';
 import { Input, Textarea } from '../../components/ui/Input';
 import { Modal } from '../../components/ui/Modal';
@@ -12,7 +13,13 @@ interface ReportFormData {
   user_mail: string;
 }
 
+interface ReportFormData {
+  template: string;
+  user_mail: string;
+}
+
 export default function ReportAIManager() {
+  const { t } = useTranslation();
   const {
     reports,
     pagination,
@@ -116,8 +123,8 @@ export default function ReportAIManager() {
             animation: isPageVisible ? 'slideInDown 0.6s ease-out forwards' : 'none'
           }}
         >
-          <h1 className="text-3xl font-bold text-foreground mb-2">Report AI Manager</h1>
-          <p className="text-gray-600">Manage your AI-powered reports efficiently</p>
+          <h1 className="text-3xl font-bold text-foreground mb-2">{t('reports.manager.title')}</h1>
+          <p className="text-gray-600">{t('reports.manager.subtitle')}</p>
         </div>
 
         {/* Filters and Actions */}
@@ -132,18 +139,18 @@ export default function ReportAIManager() {
             <form onSubmit={handleFilter} className="flex flex-col sm:flex-row gap-4 flex-1">
               <div className="flex-1 transform hover:scale-105 transition-all duration-200">
                 <Input
-                  label="Report ID"
+                  label={t('reports.manager.filters.reportId')}
                   type="number"
-                  placeholder="Enter report ID"
+                  placeholder={t('reports.manager.filters.reportIdPlaceholder')}
                   value={filterForm.id}
                   onChange={(e) => setFilterForm(prev => ({ ...prev, id: e.target.value }))}
                 />
               </div>
               <div className="flex-1 transform hover:scale-105 transition-all duration-200">
                 <Input
-                  label="User Email"
+                  label={t('reports.manager.filters.userEmail')}
                   type="email"
-                  placeholder="Enter user email"
+                  placeholder={t('reports.manager.filters.userEmailPlaceholder')}
                   value={filterForm.user_mail}
                   onChange={(e) => setFilterForm(prev => ({ ...prev, user_mail: e.target.value }))}
                 />
@@ -158,7 +165,7 @@ export default function ReportAIManager() {
                   <svg className="w-4 h-4 mr-2 group-hover:animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                   </svg>
-                  Search
+                  {t('reports.manager.filters.searchButton')}
                 </Button>
                 <Button
                   type="button"
@@ -166,7 +173,7 @@ export default function ReportAIManager() {
                   onClick={handleClearFilter}
                   className="transform hover:scale-105 transition-all duration-200"
                 >
-                  Clear
+                  {t('reports.manager.filters.clearButton')}
                 </Button>
               </div>
             </form>
@@ -179,7 +186,7 @@ export default function ReportAIManager() {
               <svg className="w-4 h-4 mr-2 group-hover:rotate-90 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
               </svg>
-              Create New Report
+              {t('reports.manager.create.title')}
             </Button>
           </div>
 
@@ -191,9 +198,10 @@ export default function ReportAIManager() {
             >
               <div className="flex items-center justify-between">
                 <span className="text-blue-800 text-sm">
-                  Filtering by: {filterForm.id && `ID: ${filterForm.id}`}
+                  {t('reports.manager.filters.filteringBy')}
+                  {filterForm.id && `${t('reports.manager.filters.id')} ${filterForm.id}`}
                   {filterForm.id && filterForm.user_mail && ', '}
-                  {filterForm.user_mail && `Email: ${filterForm.user_mail}`}
+                  {filterForm.user_mail && `${t('reports.manager.filters.email')} ${filterForm.user_mail}`}
                 </span>
                 <Button
                   variant="outline"
@@ -201,7 +209,7 @@ export default function ReportAIManager() {
                   onClick={handleClearFilter}
                   className="transform hover:scale-110 transition-all duration-200"
                 >
-                  Clear Filters
+                  {t('reports.manager.filters.clearFilters')}
                 </Button>
               </div>
             </div>
@@ -231,13 +239,13 @@ export default function ReportAIManager() {
           }}
         >
           <div className="px-6 py-4 border-b border-gray-200">
-            <h2 className="text-lg font-semibold text-gray-900">Reports</h2>
+            <h2 className="text-lg font-semibold text-gray-900">{t('reports.manager.title')}</h2>
           </div>
 
           {loading && reports.length === 0 ? (
             <div className="flex items-center justify-center h-64">
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-orange"></div>
-              <span className="ml-3 text-gray-600 animate-pulse">Loading reports...</span>
+              <span className="ml-3 text-gray-600 animate-pulse">{t('reports.manager.table.loading')}</span>
             </div>
           ) : reports.length === 0 ? (
             <div className="flex items-center justify-center h-64">
@@ -245,9 +253,9 @@ export default function ReportAIManager() {
                 <svg className="mx-auto h-12 w-12 text-gray-400 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
-                <h3 className="mt-2 text-sm font-medium text-gray-900">No reports found</h3>
+                <h3 className="mt-2 text-sm font-medium text-gray-900">{t('reports.manager.noReports')}</h3>
                 <p className="mt-1 text-sm text-gray-500">
-                  {isFiltering ? 'Try adjusting your filters or' : ''} Get started by creating a new report.
+                  {isFiltering ? t('reports.manager.noReportsFilter') : ''} {t('reports.manager.noReportsDesc')}
                 </p>
               </div>
             </div>
@@ -257,13 +265,13 @@ export default function ReportAIManager() {
                 <table className="min-w-full divide-y divide-gray-200">
                   <thead className="bg-gray-50">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Template</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">User Email</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Updated</th>
-                      <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('reports.manager.table.id')}</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('reports.manager.table.template')}</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('reports.manager.table.userEmail')}</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('reports.manager.table.status')}</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('reports.manager.table.created')}</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('reports.manager.table.updated')}</th>
+                      <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">{t('reports.manager.table.actions')}</th>
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
@@ -291,7 +299,7 @@ export default function ReportAIManager() {
                             ? 'bg-green-100 text-green-800 animate-pulse'
                             : 'bg-red-100 text-red-800'
                             }`}>
-                            {report.active ? 'Active' : 'Inactive'}
+                            {report.active ? t('reports.manager.status.active') : t('reports.manager.status.inactive')}
                           </span>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -315,11 +323,11 @@ export default function ReportAIManager() {
                             }
                             items={[
                               {
-                                label: 'Edit Report',
+                                label: t('reports.manager.actions.edit'),
                                 onClick: () => openEditModal(report)
                               },
                               {
-                                label: report.active ? 'Deactivate' : 'Activate',
+                                label: report.active ? t('reports.manager.actions.deactivate') : t('reports.manager.actions.activate'),
                                 onClick: () => handleToggleStatus(report),
                                 variant: report.active ? 'danger' : 'default'
                               }
@@ -356,7 +364,7 @@ export default function ReportAIManager() {
             setIsCreateModalOpen(false);
             setFormData({ template: '', user_mail: '' });
           }}
-          title="Create New Report"
+          title={t('reports.manager.create.title')}
         >
           <div
             className="opacity-0"
@@ -365,8 +373,8 @@ export default function ReportAIManager() {
             <form onSubmit={handleCreateReport} className="space-y-4">
               <div className="transform hover:scale-105 transition-all duration-200">
                 <Textarea
-                  label="Template"
-                  placeholder="Enter HTML template..."
+                  label={t('reports.manager.create.template')}
+                  placeholder={t('reports.manager.create.templatePlaceholder')}
                   value={formData.template}
                   onChange={(e) => setFormData(prev => ({ ...prev, template: e.target.value }))}
                   rows={10}
@@ -376,9 +384,9 @@ export default function ReportAIManager() {
               </div>
               <div className="transform hover:scale-105 transition-all duration-200">
                 <Input
-                  label="User Email"
+                  label={t('reports.manager.create.userEmail')}
                   type="email"
-                  placeholder="Enter user email"
+                  placeholder={t('reports.manager.create.userEmailPlaceholder')}
                   value={formData.user_mail}
                   onChange={(e) => setFormData(prev => ({ ...prev, user_mail: e.target.value }))}
                   required
@@ -394,7 +402,7 @@ export default function ReportAIManager() {
                   }}
                   className="transform hover:scale-105 transition-all duration-200"
                 >
-                  Cancel
+                  {t('reports.manager.create.cancel')}
                 </Button>
                 <Button
                   type="submit"
@@ -407,10 +415,10 @@ export default function ReportAIManager() {
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                       </svg>
-                      Creating...
+                      {t('reports.manager.create.creating')}
                     </>
                   ) : (
-                    'Create Report'
+                    t('reports.manager.create.submit')
                   )}
                 </Button>
               </div>
@@ -426,7 +434,7 @@ export default function ReportAIManager() {
             setEditingReport(null);
             setFormData({ template: '', user_mail: '' });
           }}
-          title="Edit Report"
+          title={t('reports.manager.edit.title')}
         >
           <div
             className="opacity-0"
@@ -435,8 +443,8 @@ export default function ReportAIManager() {
             <form onSubmit={handleEditReport} className="space-y-4">
               <div className="transform hover:scale-105 transition-all duration-200">
                 <Textarea
-                  label="Template"
-                  placeholder="Enter HTML template..."
+                  label={t('reports.manager.edit.template')}
+                  placeholder={t('reports.manager.edit.templatePlaceholder')}
                   value={formData.template}
                   onChange={(e) => setFormData(prev => ({ ...prev, template: e.target.value }))}
                   rows={10}
@@ -455,7 +463,7 @@ export default function ReportAIManager() {
                   }}
                   className="transform hover:scale-105 transition-all duration-200"
                 >
-                  Cancel
+                  {t('reports.manager.edit.cancel')}
                 </Button>
                 <Button
                   type="submit"
@@ -468,10 +476,10 @@ export default function ReportAIManager() {
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                       </svg>
-                      Updating...
+                      {t('reports.manager.edit.updating')}
                     </>
                   ) : (
-                    'Update Report'
+                    t('reports.manager.edit.submit')
                   )}
                 </Button>
               </div>
