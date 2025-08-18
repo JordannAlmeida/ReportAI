@@ -153,6 +153,10 @@ export default function GenerateReport() {
     {
       label: 'OpenAI',
       onClick: () => setFormData(prev => ({ ...prev, llm: 'openai' }))
+    },
+    {
+      label: 'Claude',
+      onClick: () => setFormData(prev => ({ ...prev, llm: 'claude' }))
     }
   ];
 

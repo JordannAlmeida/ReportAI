@@ -5,6 +5,7 @@ import (
 	"errors"
 	"io"
 	"reportia/helper"
+	anthropic "reportia/integration/llm/claude"
 	"reportia/integration/llm/google"
 	openaiapi "reportia/integration/llm/openai"
 )
@@ -31,6 +32,10 @@ func NewLLM(llm string) LLM {
 		apiKey := helper.GetEnv("OPENAI_API_KEY", "")
 		model := helper.GetEnv("OPENAI_MODEL_DEFAULT", "")
 		return openaiapi.NewOpenAIAPI(apiKey, model)
+	case "anthropic", "claude":
+		apiKey := helper.GetEnv("ANTHROPIC_API_KEY", "")
+		model := helper.GetEnv("ANTHROPIC_MODEL_DEFAULT", "")
+		return anthropic.NewAnthropicAPI(apiKey, model)
 	default:
 		apiKey := helper.GetEnv("GEMINI_API_KEY", "")
 		model := helper.GetEnv("GEMINI_MODEL_DEFAULT", "")

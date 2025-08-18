@@ -8,6 +8,7 @@ require (
 )
 
 require (
+	github.com/anthropics/anthropic-sdk-go v1.9.1
 	github.com/go-playground/validator/v10 v10.27.0
 	github.com/lib/pq v1.10.9
 	github.com/sashabaranov/go-openai v1.41.1
@@ -38,6 +39,10 @@ require (
 	github.com/leodido/go-urn v1.4.0 // indirect
 	github.com/mailru/easyjson v0.9.0 // indirect
 	github.com/swaggo/files v0.0.0-20220610200504-28940afbdbfe // indirect
+	github.com/tidwall/gjson v1.18.0 // indirect
+	github.com/tidwall/match v1.1.1 // indirect
+	github.com/tidwall/pretty v1.2.1 // indirect
+	github.com/tidwall/sjson v1.2.5 // indirect
 	go.opencensus.io v0.24.0 // indirect
 	golang.org/x/crypto v0.41.0 // indirect
 	golang.org/x/mod v0.27.0 // indirect
